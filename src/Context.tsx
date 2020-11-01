@@ -1,13 +1,12 @@
 import React, { FC, useState } from 'react';
-import App from './App';
 
 type AppContextType = {
   isSidebarOpen: boolean;
-  isModalOpen: boolean;
+  isSubmenuOpen: boolean;
   openSidebar: () => void;
   closeSidebar: () => void;
-  openModal: () => void;
-  closeModal: () => void;
+  openSubmenu: () => void;
+  closeSubmenu: () => void;
 };
 
 type Props = {
@@ -16,9 +15,9 @@ type Props = {
 
 const AppContext = React.createContext<AppContextType | null>(null);
 
-const AppProvider: FC<Props> = ({ children }) => {
+export const AppProvider: FC<Props> = ({ children }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
-  const [isModalOpen, setIsModalOpen] = useState(true);
+  const [isSubmenuOpen, setIsSubmenuOpen] = useState(true);
 
   const openSidebar = () => {
     setIsSidebarOpen(true);
@@ -26,22 +25,22 @@ const AppProvider: FC<Props> = ({ children }) => {
   const closeSidebar = () => {
     setIsSidebarOpen(false);
   };
-  const openModal = () => {
-    setIsModalOpen(true);
+  const openSubmenu = () => {
+    setIsSubmenuOpen(true);
   };
-  const closeModal = () => {
-    setIsModalOpen(false);
+  const closeSubmenu = () => {
+    setIsSubmenuOpen(false);
   };
 
   return (
     <AppContext.Provider
       value={{
         isSidebarOpen,
-        isModalOpen,
+        isSubmenuOpen,
         openSidebar,
         closeSidebar,
-        openModal,
-        closeModal,
+        openSubmenu,
+        closeSubmenu,
       }}
     >
       {children}
@@ -50,5 +49,5 @@ const AppProvider: FC<Props> = ({ children }) => {
 };
 
 export const useAppContext = () => {
-  React.useContext(AppContext);
+  return React.useContext(AppContext);
 };
